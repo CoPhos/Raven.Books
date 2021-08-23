@@ -41,8 +41,8 @@ INSTALLED_APPS = [
     #Local
     'users.apps.UsersConfig',
     'books.apps.BooksConfig',
-    'orders.apps.ordersConfig',
-    'reviews.apps.reviewsConfig',
+    'orders.apps.OrdersConfig',
+    'reviews.apps.ReviewsConfig',
 
 ]
 
