@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     'orders.apps.OrdersConfig',
     'reviews.apps.ReviewsConfig',
 
+    #3rd-party apps
+    'rest_framework',
+
 ]
 
 MIDDLEWARE = [
