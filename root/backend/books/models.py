@@ -41,4 +41,6 @@ class Book(models.Model):
     def __str__(self):
         return self.title
 
-
+class BookImage(models.Model):
+    image = models.ImageField(null=True)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
