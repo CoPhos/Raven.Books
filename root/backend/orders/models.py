@@ -12,7 +12,7 @@ class Address(models.Model):
 
 class Order(models.Model):
     customer = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
-    order_date = models.DateTimeField(default=timezone.now(), null=False, blank=False)
+    order_date = models.DateTimeField(default=timezone.now, null=False, blank=False)
     sub_total = models.DecimalField(max_digits=4, decimal_places=2, null=False, blank=False)
     shipping_cost = models.DecimalField(max_digits=4, decimal_places=2, null=False, blank=False)
     total = models.DecimalField(max_digits=4, decimal_places=2, null=False, blank=False)

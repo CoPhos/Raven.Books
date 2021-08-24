@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+
+from versatileimagefield.fields import VersatileImageField, PPOIField
 # Create your models here.
 
 class Publisher(models.Model):
@@ -11,7 +13,12 @@ class Publisher(models.Model):
 class Authors(models.Model):
     first_name = models.CharField(max_length=50, null=False, blank=False)
     last_name = models.CharField(max_length=50, null=False, blank=False)
-    profile_photo = models.ImageField(null=True)
+    profile_photo = VersatileImageField(
+        'Image',
+        upload_to='images/',
+        ppoi_field='author_ppoi'
+    )
+    author_ppoi = PPOIField()
     about_author = models.TextField(null=False, blank=False)
 
     def __str__(self):
@@ -42,5 +49,10 @@ class Book(models.Model):
         return self.title
 
 class BookImage(models.Model):
-    image = models.ImageField(null=True)
+    image = VersatileImageField(
+        'Image',
+        upload_to='images/',
+        ppoi_field='bookImage_ppoi'
+    )
+    bookImage_ppoi = PPOIField()
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
