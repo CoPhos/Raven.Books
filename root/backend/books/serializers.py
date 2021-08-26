@@ -1,10 +1,34 @@
 from rest_framework import serializers
-from .models import Book, BookImage
+from .models import Book, BookImage, Authors, Tags, Publisher
 from versatileimagefield.serializers import VersatileImageFieldSerializer
 
-class BookSerializer(serializers.ModelSerializer):
+class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = ('title',)
+        model = Authors
+        fields = ('first_name','last_name','profile_photo','about_author',)
+
+class PublisherSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Publisher
+        fields = ('publisher_name',)
+
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tags
+        fields = ('tag_name',)
+
+class BookDetailSerializer(serializers.ModelSerializer):
+    publisher =  serializers.SlugRelatedField(read_only=True, slug_field="publisher_name")
+    tag = serializers.SlugRelatedField(read_only=True,many=True, slug_field="tag_name")
+    author = AuthorSerializer(many=True)
+    class Meta:
+        fields = ('author','title','isbn','publication_year','edition','price','quant_in_stock','publisher','language','tag','description','pages','weight',)
+        model = Book
+
+class BookSerializer(serializers.ModelSerializer):
+    author = AuthorSerializer(many=True)
+    class Meta:
+        fields = ('title', 'price', 'author','publication_year')
         model = Book
 
 class BookImageSerializer(serializers.ModelSerializer):
@@ -17,5 +41,12 @@ class BookImageSerializer(serializers.ModelSerializer):
         ]
     )
     class Meta:
-        fields = ('image',)
         model = BookImage
+        fields = ('image',)
+
+class BookImage_BookSerializer(serializers.ModelSerializer):
+    images = BookImageSerializer(many=True)
+
+    class Meta:
+        model = Book
+        fields = ('id' ,'images','title')
