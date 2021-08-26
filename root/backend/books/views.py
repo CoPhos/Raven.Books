@@ -11,7 +11,7 @@ class BookList(generics.ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     filter_backends = [filters.OrderingFilter]
-    ordering_fields = ['publication_year',]
+    ordering_fields = ['publication_year','sold_count',]
     pagination_class = PageNumberPagination
 
 class BookDetail(generics.RetrieveAPIView):
