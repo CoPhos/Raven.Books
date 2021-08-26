@@ -41,6 +41,7 @@ class Book(models.Model):
     weight = models.CharField(max_length=4, null=False, blank=False)
     pages = models.CharField(max_length=4, null=False, blank=False)
     description = models.TextField(null=False, blank=False)
+    sold_count = models.IntegerField(blank=False, null=False, default=0)
     publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE, related_name="book_publisher")
     tag = models.ManyToManyField('Tags', related_name="book_tag")
     author = models.ManyToManyField('Authors', related_name="book_author")

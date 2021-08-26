@@ -22,7 +22,7 @@ class BookDetailSerializer(serializers.ModelSerializer):
     tag = serializers.SlugRelatedField(read_only=True,many=True, slug_field="tag_name")
     author = AuthorSerializer(many=True)
     class Meta:
-        fields = ('author','title','isbn','publication_year','edition','price','quant_in_stock','publisher','language','tag','description','pages','weight',)
+        fields = ('author','title','isbn','publication_year', 'sold_count','edition','price','quant_in_stock','publisher','language','tag','description','pages','weight',)
         model = Book
 
 class BookSerializer(serializers.ModelSerializer):
