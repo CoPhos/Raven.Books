@@ -31,7 +31,6 @@ class Tags(models.Model):
         return self.tag_name
 
 class Book(models.Model):
-    publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE)
     title = models.CharField(max_length=255, null=False, blank=False)
     isbn = models.CharField(max_length=17, null=False, blank=False)
     publication_year = models.DateTimeField()
@@ -42,8 +41,9 @@ class Book(models.Model):
     weight = models.CharField(max_length=4, null=False, blank=False)
     pages = models.CharField(max_length=4, null=False, blank=False)
     description = models.TextField(null=False, blank=False)
-    tags = models.ManyToManyField('Tags')
-    authors = models.ManyToManyField('Authors')
+    publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE, related_name="book_publisher")
+    tag = models.ManyToManyField('Tags', related_name="book_tag")
+    author = models.ManyToManyField('Authors', related_name="book_author")
 
     def __str__(self):
         return self.title
@@ -55,4 +55,4 @@ class BookImage(models.Model):
         ppoi_field='bookImage_ppoi'
     )
     bookImage_ppoi = PPOIField()
-    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name="images")
