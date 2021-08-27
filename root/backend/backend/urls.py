@@ -19,7 +19,15 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    #Django admin
     path('admin/', admin.site.urls),
+
+    #User management
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/v1/dj-rest-auth/', include('dj_rest_auth.urls')),
+    path('api/v1/dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')),
+
+    #Local apps
     path('api/v1/', include('books.urls')),
     # path('api/v1', include('orders.urls')),
     # path('api/v1', include('reviews.urls')),
