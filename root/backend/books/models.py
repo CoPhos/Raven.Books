@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -5,12 +6,22 @@ from versatileimagefield.fields import VersatileImageField, PPOIField
 # Create your models here.
 
 class Publisher(models.Model):
+    id = models.UUIDField(
+        primary_key = True,
+        default=uuid.uuid4,
+        editable=False
+    )
     publisher_name = models.CharField(max_length=50, null=False, blank=False,)
 
     def __str__(self):
         return self.publisher_name
 
 class Authors(models.Model):
+    id = models.UUIDField(
+        primary_key = True,
+        default=uuid.uuid4,
+        editable=False
+    )
     first_name = models.CharField(max_length=50, null=False, blank=False)
     last_name = models.CharField(max_length=50, null=False, blank=False)
     profile_photo = VersatileImageField(
@@ -25,12 +36,22 @@ class Authors(models.Model):
         return self.first_name
 
 class Tags(models.Model):
+    id = models.UUIDField(
+        primary_key = True,
+        default=uuid.uuid4,
+        editable=False
+    )
     tag_name = models.CharField(max_length=50, null=False, blank=False)
 
     def __str__(self):
         return self.tag_name
 
 class Book(models.Model):
+    id = models.UUIDField(
+        primary_key = True,
+        default=uuid.uuid4,
+        editable=False
+    )
     title = models.CharField(max_length=255, null=False, blank=False)
     isbn = models.CharField(max_length=17, null=False, blank=False)
     publication_year = models.DateTimeField()
@@ -50,6 +71,11 @@ class Book(models.Model):
         return self.title
 
 class BookImage(models.Model):
+    id = models.UUIDField(
+        primary_key = True,
+        default=uuid.uuid4,
+        editable=False
+    )
     image = VersatileImageField(
         'Image',
         upload_to='images/',

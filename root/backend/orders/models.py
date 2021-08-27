@@ -1,8 +1,14 @@
+import uuid
 from django.db import models
 from django.utils import timezone
 # Create your models here.
 
 class Address(models.Model):
+    id = models.UUIDField(
+        primary_key = True,
+        default=uuid.uuid4,
+        editable=False
+    )
     street = models.CharField(max_length=255, null=False, blank=False)
     city = models.CharField(max_length=255, null=False, blank=False)
     state = models.CharField(max_length=255, null=False, blank=False)
@@ -11,6 +17,11 @@ class Address(models.Model):
     extra_information = models.TextField(null=False, blank=False)
 
 class Order(models.Model):
+    id = models.UUIDField(
+        primary_key = True,
+        default=uuid.uuid4,
+        editable=False
+    )
     order_date = models.DateTimeField(default=timezone.now, null=False, blank=False)
     sub_total = models.DecimalField(max_digits=4, decimal_places=2, null=False, blank=False)
     shipping_cost = models.DecimalField(max_digits=4, decimal_places=2, null=False, blank=False)
@@ -23,6 +34,11 @@ class Order(models.Model):
     #     return self.publisher_name
      
 class OrderBook(models.Model):
+    id = models.UUIDField(
+        primary_key = True,
+        default=uuid.uuid4,
+        editable=False
+    )
     book = models.ForeignKey('books.Book', on_delete=models.CASCADE, related_name="orderBook_book")
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name="orderBook_order")
     quantity = models.IntegerField(null=False, blank=False)

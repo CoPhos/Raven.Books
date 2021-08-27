@@ -28,7 +28,7 @@ class BookDetailSerializer(serializers.ModelSerializer):
 class BookSerializer(serializers.ModelSerializer):
     author = AuthorSerializer(many=True)
     class Meta:
-        fields = ('title', 'price', 'author','publication_year')
+        fields = ('id','title', 'price', 'author','publication_year')
         model = Book
 
 class BookImageSerializer(serializers.ModelSerializer):
